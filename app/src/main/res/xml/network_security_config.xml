@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">hero360.heroibil.com</domain>
+        <domain includeSubdomains="true">172.16.123.121</domain>
+        <domain includeSubdomains="true">crm1.autosherpa3.com</domain>
+        <domain includeSubdomains="true">crm2.autosherpa3.com</domain>
+        <domain includeSubdomains="true">216.48.184.100</domain>
+        <domain includeSubdomains="true">demo.autosherpa3.com</domain>
+    </domain-config>
+</network-security-config>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress ALL -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.demo.autosherpa3">
+
+    <uses-sdk tools:overrideLibrary="com.wnafee.vector,com.firebase.ui.auth" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACTION_NEW_OUTGOING_CALL" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.NETWORK" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACTION_OPEN_DOCUMENT_TREE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.bluetooth"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.screen.portrait"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="true" />
+
+<!--    android:name="com.demo.autosherpa3.WyzConnectApp"-->
+    <application
+        android:name="com.demo.autosherpa3.WyzConnectApp"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@mipmap/new_app_icon"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:launchMode="standard"
+        android:roundIcon="@mipmap/new_app_icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
+        <activity android:name="activity.CallTriggerActivity"/>
+        <activity android:name="activity.CREActivity" />
+        <activity android:name="com.demo.autosherpa3.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+<!--        <activity-->
+<!--            android:name="com.demo.autosherpas3.WyzConnectApp"-->
+
+<!--            android:screenOrientation="portrait" >-->
+<!--        </activity>-->
+        <activity
+            android:name="com.demo.autosherpa3.ActivityPhoneAuth"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+
+        <receiver android:name="receiver.NetworkReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="service.Restarter" />
+        <receiver
+            android:name="receiver.CallBroadCastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+                <action android:name="android.intent.action.PHONE_STATE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="service.JobSchedulerService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name="service.YourService"
+            android:enabled="true" />
+        <service
+            android:name="com.demo.autosherpa3.RegistrationIntentService"
+            android:enabled="true" />
+        <service android:name="service.RecordService" />
+        <service android:name="service.LocationService" />
+        <service android:name="service.AysncRecordSync" />
+        <service
+            android:name="com.demo.autosherpa3.MyFirebaseMessagingService"
+            android:stopWithTask="false"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="1393c6e5bd61514ae8053029dfe0d73d87f6f645"
+            tools:replace="android:value" />
+    </application>
+
+</manifest>

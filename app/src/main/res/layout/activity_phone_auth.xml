@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/id_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/color_background"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/otp_visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etxtPhoneCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_otp"
+                    android:inputType="number"
+                    android:visibility="visible" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSignIN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/gen_button_background"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="@string/sign_in"
+                    android:textColor="@color/color_background"
+                    android:visibility="visible" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/lnrLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/logo" />
+
+<!--                <com.hbb20.CountryCodePicker-->
+<!--                    android:id="@+id/ccp"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="start"-->
+<!--                    android:gravity="center"-->
+<!--                    app:countryPreference="US,IN,NZ"-->
+<!--                    app:defaultCode="91" />-->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edterror"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etxtPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/btnVerify"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:hint="@string/enter_authorized_phone_number"
+                        android:inputType="phone"
+                        android:padding="10dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:id="@+id/imeierror"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edt_imei"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/btnVerify"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:hint="@string/enter_authorized_imei_number"
+                        android:inputType="phone"
+                        android:padding="10dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnVerify"
+                    android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/gen_button_background"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/verify"
+                    android:textColor="@color/color_background" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/lnrDealerId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/logo" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtdealererror"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edtDealerId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/btnVerify"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:hint="@string/enter_dealername"
+                        android:inputType="textCapCharacters"
+                        android:padding="10dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/gen_button_background"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/submit"
+                    android:textColor="@color/color_background" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </ScrollView>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

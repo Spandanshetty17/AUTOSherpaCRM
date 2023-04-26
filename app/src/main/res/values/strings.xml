@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">AUTOSherpa CRM</string>
+    <string name="enter_otp">Enter OTP</string>
+
+    <string name="sign_in">Sign In</string>
+    <string name="enter_authorized_phone_number">Enter Authorized Phone Number</string>
+    <string name="enter_dealername">Enter Dealer Name</string>
+    <string name="enter_authorized_imei_number">Enter Authorized Imei Number</string>
+    <string name="verify">Verify</string>
+    <string name="submit">Submit</string>
+    <string name="signing_in">Signing In</string>
+    <string name="sign_credential_fail">Sign Credential Fail</string>
+    <string name="signed_success">Signed Success</string>
+    <string name="userdisabled">User Disabled</string>
+    <string name="nogoogleplay_text">No GooglePlay</string>
+    <string name="loading_text">Loading Please Wait…</string>
+    <string name="nointernet_text">No Internet connection</string>
+    <string name="settings_text">Settings</string>
+    <string name="uploading_text">Uploading...! Please Wait</string>
+    <string name="durationzero">duration</string>
+    <string name="numbernotfound">Number Not Found</string>
+    <string name="cancel_text">cancel</string>
+    <string name="vehiclerecived_text">Vehicle Recived</string>
+    <string name="makecall_text">make a call</string>
+    <string name="hint_makecallfrom">Make Call Info</string>
+    <string name="header_callstomade">Assigned Interaction</string>
+    <string name="header_Totalcallstobemade">Service Booked</string>
+    <string name="header_pendingcalls">Pending Calls</string>
+    <string name="header_conversationrate">Conversion Rate</string>
+    <string name="calltrigger">call Trigger</string>
+    <string name="msg_token_fmt">msg_token_fmt</string>
+    <string name="answer_call">ACCEPT</string>
+    <string name="reject_call">REJECT</string>
+</resources>

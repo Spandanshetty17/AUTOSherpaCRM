@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_cre"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    android:orientation="vertical">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/ic_toolbar" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cre_user" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Welcome"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/color_tomato" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardBackgroundColor="@color/color_background"
+                card_view:cardCornerRadius="8dp"
+                card_view:cardElevation="3dp"
+                card_view:cardUseCompatPadding="true">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/header_TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_margin_bottom"
+                    android:background="@color/color_background"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:textColor="@color/color_tomato"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+                <RelativeLayout
+                    android:id="@+id/Interaction_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_background"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingTop="30dp"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:visibility="gone"
+                    android:paddingBottom="@dimen/activity_vertical_margin">
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/Calltobemade_Header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginTop="@dimen/activity_margin_top"
+                        android:text="@string/header_callstomade"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/Normal_Textsize" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/Calltobemade_TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/Totalcalls_Header"
+                        android:layout_alignStart="@+id/servicebooked_TextView"
+                        android:layout_alignLeft="@+id/servicebooked_TextView"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/Normal_Textsize" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_below="@+id/Calltobemade_TextView"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/dotted"
+                        android:layerType="software" />
+
+                    <TextView
+                        android:id="@+id/Totalcalls_Header"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/Calltobemade_Header"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginTop="@dimen/activity_margin_top"
+                        android:text="@string/header_Totalcallstobemade"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/Normal_Textsize" />
+
+                    <TextView
+                        android:id="@+id/servicebooked_TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/Conversationrate_Header"
+                        android:layout_alignTop="@+id/Totalcalls_Header"
+                        android:layout_marginLeft="@dimen/activity_margin_left"
+                        android:layout_toRightOf="@+id/Totalcalls_Header"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/Normal_Textsize" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_below="@+id/servicebooked_TextView"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/dotted"
+                        android:layerType="software" />
+
+                    <TextView
+                        android:id="@+id/Conversationrate_Header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/Totalcalls_Header"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginTop="@dimen/activity_margin_top"
+                        android:text="@string/header_conversationrate"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/Normal_Textsize" />
+
+                    <TextView
+                        android:id="@+id/Conversationrate_TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/servicebooked_TextView"
+                        android:layout_alignLeft="@+id/servicebooked_TextView"
+                        android:layout_alignTop="@+id/Conversationrate_Header"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/Normal_Textsize" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_below="@+id/Conversationrate_TextView"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/dotted"
+                        android:layerType="software" />
+
+                    <TextView
+                        android:id="@+id/Pendingcalls_Header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/Conversationrate_TextView"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginTop="@dimen/activity_margin_top"
+                        android:text="@string/header_pendingcalls"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/Normal_Textsize" />
+
+                    <TextView
+                        android:id="@+id/Pendingcalls_TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/servicebooked_TextView"
+                        android:layout_alignLeft="@+id/Pendingcalls_Header"
+                        android:layout_alignTop="@+id/Pendingcalls_Header"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/Normal_Textsize" />
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/snackbarCoordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

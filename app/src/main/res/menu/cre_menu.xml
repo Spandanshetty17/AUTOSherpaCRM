@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".CREActivity">
+    <item
+        android:id="@+id/more"
+        android:icon="@drawable/ic_more_vert_black_24dp"
+        android:title=""
+        app:showAsAction="always">
+        <menu>
+
+            <item
+                android:id="@+id/creupload"
+                android:iconTint="@color/color_background"
+                android:icon="@drawable/ic_file_upload_black_24dp"
+                android:title="Upload"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/crelogout"
+                android:iconTint="@color/color_background"
+                android:icon="@drawable/ic_logout_new_black_24dp"
+                android:title="Logout"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+
+</menu>

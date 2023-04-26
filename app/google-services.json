@@ -1,0 +1,170 @@
+{
+  "project_info": {
+    "project_number": "588489748514",
+    "firebase_url": "https://autosherpa3-default-rtdb.firebaseio.com",
+    "project_id": "autosherpa3",
+    "storage_bucket": "autosherpa3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588489748514:android:4ceba3a2ed621f7b82da7b",
+        "android_client_info": {
+          "package_name": "com.demo.autosherpa3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588489748514-4vo6u9ohaggkgptomfbk7b81sld2788t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.autosherpa3.popular",
+            "certificate_hash": "3293457867246b5d878576160a2ed73e0f90ef19"
+          }
+        },
+        {
+          "client_id": "588489748514-c0vokltivquiu0l8tt5h810un7d5os0c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.autosherpa3.popular",
+            "certificate_hash": "1629829b764c6d30ad84d4a70d602030b4dad9a5"
+          }
+        },
+        {
+          "client_id": "588489748514-d6ficqouvbldefv62jst1fbh22vr4qcf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.autosherpa3.popular",
+            "certificate_hash": "afdef8469e0f77b05b98e727667f18724883ef17"
+          }
+        },
+        {
+          "client_id": "588489748514-kc47cpmritmill8fhapjog53prn0aod3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.autosherpa3.popular",
+            "certificate_hash": "ddbba6912c35475a8883c80b38bb97fe84a416f2"
+          }
+        },
+        {
+          "client_id": "588489748514-22d6bps7fqn5rq5ln26afscvvdlcn10q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtDGqS61qqpX6W6Shich0mXrwuv4nE1BA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588489748514-22d6bps7fqn5rq5ln26afscvvdlcn10q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588489748514:android:5dacdebd442a127e82da7b",
+        "android_client_info": {
+          "package_name": "com.autosherpa3.sukhmani"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588489748514-6h5un5urktet5jn69f7e2jk6id42jrvn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.autosherpa3.sukhmani",
+            "certificate_hash": "3293457867246b5d878576160a2ed73e0f90ef19"
+          }
+        },
+        {
+          "client_id": "588489748514-gf05e92b4t7g32afugva80u6v8g9gagn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.autosherpa3.sukhmani",
+            "certificate_hash": "ddbba6912c35475a8883c80b38bb97fe84a416f2"
+          }
+        },
+        {
+          "client_id": "588489748514-l8uaiuf3kr1f4fs6es9djr80kr9qma0t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.autosherpa3.sukhmani",
+            "certificate_hash": "5c88eb3237fc0ef7c682c6d05f05fc110fd16780"
+          }
+        },
+        {
+          "client_id": "588489748514-22d6bps7fqn5rq5ln26afscvvdlcn10q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtDGqS61qqpX6W6Shich0mXrwuv4nE1BA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588489748514-22d6bps7fqn5rq5ln26afscvvdlcn10q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588489748514:android:70d8f58fa44b193b82da7b",
+        "android_client_info": {
+          "package_name": "com.autosherpas.crmcalling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588489748514-kt3564ojip61124lakedlp27b004pv5s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.autosherpas.crmcalling",
+            "certificate_hash": "5c88eb3237fc0ef7c682c6d05f05fc110fd16780"
+          }
+        },
+        {
+          "client_id": "588489748514-p89pqtukhps2ougplfm1e7hlthmg8phd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.autosherpas.crmcalling",
+            "certificate_hash": "3293457867246b5d878576160a2ed73e0f90ef19"
+          }
+        },
+        {
+          "client_id": "588489748514-22d6bps7fqn5rq5ln26afscvvdlcn10q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtDGqS61qqpX6W6Shich0mXrwuv4nE1BA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588489748514-22d6bps7fqn5rq5ln26afscvvdlcn10q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
