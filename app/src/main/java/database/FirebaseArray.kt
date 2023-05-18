@@ -98,4 +98,3 @@ class FirebaseArray(ref: Query) : ChildEventListener {
         mListener?.onCancelled(databaseError)
     }
 }
-}

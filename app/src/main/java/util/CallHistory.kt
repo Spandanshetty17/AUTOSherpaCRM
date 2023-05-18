@@ -3,17 +3,16 @@ package util
 import android.content.Context
 import android.widget.Toast
 import com.demo.autosherpa3.R
-import com.demo.autosherpa3.WyzConnectApp
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import entity.CallInfo
 import java.io.File
+import activity.WyzConnectApp
 import java.io.IOException
 import java.text.SimpleDateFormat
-import java.util.Date
-import entity.CallInfo
+import java.util.*
 
 
 class CallHistory {
@@ -39,9 +38,9 @@ class CallHistory {
     const val strpsf = "PSF"
     const val strvehicleNumber = "vehicleNumber"
 
-    private val syncSource = CommonSettings.getInstance().SYNC_SOURCE
-    private val dealerId = CommonSettings.getInstance().dealerId
-    private val userId = CommonSettings.getInstance().userId
+    private val syncSource = CommonSettings.instance.SYNC_SOURCE
+    private val dealerId = CommonSettings.instance.dealerId
+    private val userId = CommonSettings.instance.userId
 
     val creUrl = "$syncSource$dealerId/CRE/$userId/CREDashBoard"
     val creHistoryUrl = "$syncSource$dealerId/CRE/$userId/WebHistory/CallInfo"
@@ -95,7 +94,8 @@ class CallHistory {
     }
 
     fun insertHistory(callInfo: CallInfo) {
-        val vehicleStatusUpdateRef = FirebaseDatabase.getInstance().getReferenceFromUrl(DRIVERPICKED_URL).push()
+        val vehicleStatusUpdateRef =
+            FirebaseDatabase.getInstance().getReferenceFromUrl(DRIVERPICKED_URL).push()
 
         currentDateTime(callInfo)
 
@@ -103,14 +103,11 @@ class CallHistory {
             vehicleStatusUpdateRef.setValue(callInfo)
         }
 
-        callInfo.apply {
-            interactionDate = null
-            interactionTime = null
-        }
-        (mContext.applicationContext as WyzConnectApp).callInfoCache = null
+        callInfo = null
+        (CallHistory.mContext.getApplicationContext() as WyzConnectApp).setCallInfoCache(null)
     }
 
-    private fun currentDateTime(callInfo: CallInfo) {
+        private fun currentDateTime(callInfo: CallInfo) {
         val sdf_date = SimpleDateFormat("dd/MM/yyyy")
         val sdf_time = SimpleDateFormat("HH:mm:ss")
 
@@ -119,7 +116,7 @@ class CallHistory {
     }
 
     fun getDisableUserStatus(): String {
-        val settings = CommonSettings.getInstance()
+        val settings = CommonSettings.instance
 
         val ref = FirebaseDatabase.getInstance().getReferenceFromUrl("${settings.syncSource}${settings.dealerId}/users/${settings.userId}")
         ref.child("DisableUser").addValueEventListener(object : ValueEventListener {

@@ -1,16 +1,10 @@
-package com.demo.autosherpa3
+package activity
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import activity.CREActivity
 import android.app.ActivityManager
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
-import android.content.BroadcastReceiver
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.content.SharedPreferences
+import android.content.*
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Build
@@ -21,33 +15,47 @@ import android.view.View
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.multidex.MultiDex
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
-import activity.CREActivity
 import receiver.NetworkReceiver
 import service.JobSchedulerService
 import service.YourService
 import util.CommonSettings
+import android.support.multidex.MultiDexApplication
 
+/**
+ * Created By 1526 on 1/10/2020
+ */
 
-class SplashActivity : AppCompatActivity() {
-
-    private var mServiceIntent: Intent? = null
+public class SplashActivity : AppCompatActivity() : MultiDexApplication{
+    var mServiceIntent: Intent? = null
     private var mYourService: YourService? = null
     private var mNetworkReceiver: BroadcastReceiver? = null
 
+    const val MY_PREFS_NAME = "UpdateSharedPref"
+    private var settings: CommonSettings? = null
+    const val TAG = "WyzSplash"
+    const val JOB_ID = 1
+    var latestVersion = ""
+    var updateUrl = ""
+    var currentVersion = ""
+    var appVersion = ""
+    var id_splash: RelativeLayout? = null
+    const val FCM_TOKEN = "FCMToken"
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MultiDex.install(this)
         hideStatusBar()
-        settings = CommonSettings.getInstance()
+        settings = CommonSettings.instance
         Log.i(TAG, "Authentication status :" + settings.isAuthenticated())
         setContentView(R.layout.activity_splash)
-        currentVersion = getAppVersion(this)
+        currentVersion = getAppVersion(this@SplashActivity)
         checkUpdate()
         mNetworkReceiver = NetworkReceiver()
         id_splash = findViewById(R.id.id_splash)
@@ -56,31 +64,38 @@ class SplashActivity : AppCompatActivity() {
         if (FirebaseDatabase.getInstance() == null) {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         }
-        mServiceIntent = Intent(this, mYourService!!.javaClass)
-        if (!isMyServiceRunning(mYourService!!.javaClass)) {
+        mServiceIntent = Intent(this, mYourService.getClass())
+        if (!isMyServiceRunning(mYourService.getClass())) {
             startService(mServiceIntent)
         }
-
         val jobInfo: JobInfo
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task: Task<String?> ->
+            if (task.isComplete) {
                 val token = task.result
-                settings.setRegToken(token)
+                settings.regToken = token
             }
         }
         jobInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            JobInfo.Builder(JOB_ID, ComponentName(this, JobSchedulerService::class.java))
-                .setPeriodic(15 * 60 * 1000, 7 * 60 * 1000)
+            JobInfo.Builder(
+                JOB_ID, ComponentName(
+                    this,
+                    JobSchedulerService::class.java
+                )
+            )
+                .setPeriodic((15 * 60 * 1000).toLong(), (7 * 60 * 1000).toLong())
                 .build()
         } else {
-            JobInfo.Builder(JOB_ID, ComponentName(this, JobSchedulerService::class.java))
-                .setPeriodic(3 * 60 * 1000)
+            JobInfo.Builder(
+                JOB_ID, ComponentName(
+                    this,
+                    JobSchedulerService::class.java
+                )
+            )
+                .setPeriodic((3 * 60 * 1000).toLong())
                 .build()
         }
-        val jobScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler?
-        if (jobScheduler != null) {
-            jobScheduler.schedule(jobInfo)
-        }
+        val jobScheduler = getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
+        jobScheduler?.schedule(jobInfo)
     }
 
     private fun checkUpdate() {
@@ -89,10 +104,16 @@ class SplashActivity : AppCompatActivity() {
         editor.putString("LatestVersion", latestVersion)
         editor.putString("CurrentVersion", currentVersion)
         editor.apply()
-        Handler().postDelayed({
-            if (settings.isDisabeUser()) {
+        val handler = Handler()
+        handler.postDelayed({
+            if (settings.isDisabeUser) {
                 runOnUiThread {
-                    Toast.makeText(applicationContext, R.string.userdisabled, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        applicationContext,
+                        R.string.userdisabled,
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
                     finish()
                 }
             } else if (!settings.isAuthenticated()) {
@@ -100,8 +121,12 @@ class SplashActivity : AppCompatActivity() {
                 intent.putExtra("LatestVersion", latestVersion)
                 intent.putExtra("CurrentVersion", currentVersion)
                 startActivity(intent)
-            } else if (settings.getUserRole().equals("CRE", ignoreCase = true)) {
-                if (latestVersion.equals(currentVersion, ignoreCase = true)) {
+            } else if (settings.getUserRole().equalsIgnoreCase("CRE")) {
+                if (latestVersion.equals(
+                        currentVersion,
+                        ignoreCase = true
+                    )
+                ) {
                     val intent = Intent(baseContext, CREActivity::class.java)
                     intent.putExtra("LatestVersion", latestVersion)
                     intent.putExtra("CurrentVersion", currentVersion)
@@ -117,42 +142,51 @@ class SplashActivity : AppCompatActivity() {
         }, 2000)
     }
 
+    //hide status bar
     private fun hideStatusBar() {
         val decorView = window.decorView
         val uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN
         decorView.systemUiVisibility = uiOptions
-        supportActionBar?.hide()
+        val actionBar = supportActionBar
+        actionBar?.hide()
     }
 
     private fun registerNetworkBroadcastForNougat() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            registerReceiver(mNetworkReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+            registerReceiver(
+                mNetworkReceiver,
+                IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+            )
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            registerReceiver(mNetworkReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+            registerReceiver(
+                mNetworkReceiver,
+                IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+            )
         }
     }
 
+    //checking service is running or not
     private fun isMyServiceRunning(serviceClass: Class<*>): Boolean {
-        val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        for (service in manager.getRunningServices(Integer.MAX_VALUE)) {
+        val manager = (getSystemService(ACTIVITY_SERVICE) as ActivityManager)
+        for (service in manager.getRunningServices(Int.MAX_VALUE)) {
             if (serviceClass.name == service.service.className) {
-                Log.i("isMyServiceRunning?", true.toString())
+                Log.i("isMyServiceRunning?", true.toString() + "")
                 return true
             }
         }
-        Log.i("isMyServiceRunning?", false.toString())
+        Log.i("isMyServiceRunning?", false.toString() + "")
         return false
     }
 
     private fun getAppVersion(context: Context): String {
         var result = ""
         try {
-            val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            result = packageInfo.versionName
+            result = context.packageManager
+                .getPackageInfo(context.packageName, 0).versionName
             result = result.replace("[a-zA-Z]|-".toRegex(), "")
         } catch (e: PackageManager.NameNotFoundException) {
-            Log.e(TAG, e.message)
+            Log.e(TAG, e.message!!)
         }
         return result
     }
@@ -169,11 +203,12 @@ class SplashActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private fun unregisterNetworkChanges() {
+    protected fun unregisterNetworkChanges() {
         try {
             unregisterReceiver(mNetworkReceiver)
         } catch (e: IllegalArgumentException) {
             e.printStackTrace()
         }
     }
+
 }

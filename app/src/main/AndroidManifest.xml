@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--suppress ALL -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.demo.autosherpa3">
+    package="activity">
 
     <uses-sdk tools:overrideLibrary="com.wnafee.vector,com.firebase.ui.auth" />
 
@@ -66,9 +67,9 @@
         android:name="android.hardware.camera.front"
         android:required="true" />
 
-<!--    android:name="com.demo.autosherpa3.WyzConnectApp"-->
+    <!--    android:name="com.demo.autosherpa3.WyzConnectApp"-->
+
     <application
-        android:name="com.demo.autosherpa3.WyzConnectApp"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:icon="@mipmap/new_app_icon"
@@ -78,11 +79,12 @@
         android:roundIcon="@mipmap/new_app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning"
+        tools:targetApi="m">
 
         <activity android:name="activity.CallTriggerActivity"/>
         <activity android:name="activity.CREActivity" />
-        <activity android:name="com.demo.autosherpa3.SplashActivity"
+        <activity android:name="activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -90,13 +92,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:name="com.demo.autosherpas3.WyzConnectApp"-->
 
-<!--            android:screenOrientation="portrait" >-->
-<!--        </activity>-->
         <activity
-            android:name="com.demo.autosherpa3.ActivityPhoneAuth"
+            android:name="activity.ActivityPhoneAuth"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
 
@@ -129,13 +127,13 @@
             android:name="service.YourService"
             android:enabled="true" />
         <service
-            android:name="com.demo.autosherpa3.RegistrationIntentService"
+            android:name="activity.RegistrationIntentService"
             android:enabled="true" />
         <service android:name="service.RecordService" />
         <service android:name="service.LocationService" />
         <service android:name="service.AysncRecordSync" />
         <service
-            android:name="com.demo.autosherpa3.MyFirebaseMessagingService"
+            android:name="activity.MyFirebaseMessagingService"
             android:stopWithTask="false"
             android:exported="false">
             <intent-filter>

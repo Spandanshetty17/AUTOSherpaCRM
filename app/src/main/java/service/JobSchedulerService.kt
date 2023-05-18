@@ -1,21 +1,17 @@
 package service
 
-import com.demo.autosherpa3.SplashActivity.MY_PREFS_NAME
 import android.app.job.JobParameters
 import android.app.job.JobService
 import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.os.Build
 import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.demo.autosherpa3.WyzConnectApp
-import java.io.File
-import java.util.ArrayList
+import activity.WyzConnectApp
 import database.DBHelper
 import database.DatabaseManager
-import okhttp3.MediaType
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,22 +19,22 @@ import retrofit2.Response
 import retrointerface.APIClient
 import retrointerface.AudioDataResponse
 import util.CommonSettings
-
+import java.io.File
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 class JobSchedulerService : JobService() {
-    private var service: UploadService? = null
+    var service: UploadService? = null
     var DEFAULT_STORAGE_LOCATION = "/sdcard/wyzcallrecorder"
-    private var audioStatusList: ArrayList<AudioDataResponse>? = null
-    private var uploadFirebaseFlag = false
-    private var dbhelper: DBHelper? = null
-    private var settings: CommonSettings? = null
-    private var prefs: SharedPreferences? = null
+    var AudioStatusList: ArrayList<AudioDataResponse>? = null
+    var uploadFirebaseFlag = false
+    var dbhelper: DBHelper? = null
+    var settings: CommonSettings? = null
+    var prefs: SharedPreferences? = null
     override fun onStartJob(jobParameters: JobParameters): Boolean {
-        if (CommonSettings.getInstance().haveNetworkConnection()) {
-            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        if (CommonSettings.instance.haveNetworkConnection()) {
+            val policy = ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)
-            //syncAudioRecord()
+            //    syncAudioRecord();
         } else {
             Log.i("Internet", "No Internet")
         }
@@ -49,8 +45,9 @@ class JobSchedulerService : JobService() {
         return false
     }
 
-    private inner class JobTask(private val jobService: JobService) : AsyncTask<JobParameters, Void, JobParameters>() {
-        override fun doInBackground(vararg params: JobParameters): JobParameters {
+    private class JobTask private constructor(private val jobService: JobService) :
+        AsyncTask<JobParameters?, Void?, JobParameters>() {
+        protected override fun doInBackground(vararg params: JobParameters): JobParameters {
             for (i in 1..10) {
                 Log.e("number", "num$i")
             }
@@ -63,16 +60,17 @@ class JobSchedulerService : JobService() {
     }
 
     fun syncAudioRecord() {
-        var files: ArrayList<String>
+        val files: ArrayList<String>
         try {
-            settings = (applicationContext as WyzConnectApp).settings
+            settings = (this.applicationContext as WyzConnectApp).getSettings()
             dbhelper = DBHelper(this)
             DatabaseManager.initializeInstance(dbhelper)
-            files = dbhelper!!.notSyncedFileAll
+            files = dbhelper.getNotSyncedFileAll()
             if (!files.isEmpty()) {
                 for (filename in files) {
                     UploadFileUsingRetroFit(filename)
                 }
+                //System.out.println("syncRecord : " + files.size());
                 Log.d("syncAudioRecord", files.size.toString())
             } else {
                 Log.d("No files to upload", "No files to upload")
@@ -88,61 +86,71 @@ class JobSchedulerService : JobService() {
 
     fun UploadFileUsingRetroFit(uniqueId: String?): Boolean {
         prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE)
-        val dealerUrl = prefs!!.getString("DealerUrl", "")
+        val dealerUrl = prefs.getString("DealerUrl", "")
         service = APIClient.getClient(dealerUrl).create(UploadService::class.java)
         dbhelper = DBHelper(this)
-        val file = File(DEFAULT_STORAGE_LOCATION + "/" + uniqueId)
+        val file = File("$DEFAULT_STORAGE_LOCATION/$uniqueId")
         if (file.exists()) {
             try {
                 if (file.exists()) {
-                    audioStatusList = ArrayList()
+                    AudioStatusList = ArrayList<AudioDataResponse>()
                     val name: RequestBody
-                    val reqFile = RequestBody.create(MediaType.parse("audio/*"), file)
-                    val body = MultipartBody.Part.createFormData("audio", settings!!.dealerId + "/" + file.name, reqFile)
-                    name = if (uniqueId == null) {
-                        RequestBody.create(MediaType.parse("text/plain"), "0")
+                    val reqFile = RequestBody.create(parse.parse("audio/*"), file)
+                    val body: Part = createFormData.createFormData(
+                        "audio",
+                        settings.getDealerId() + "/" + file.name,
+                        reqFile
+                    )
+                    if (uniqueId == null) {
+                        name = RequestBody.create(parse.parse("text/plain"), "0")
                     } else {
-                        RequestBody.create(MediaType.parse("text/plain"), uniqueId)
+                        name = RequestBody.create(parse.parse("text/plain"), uniqueId)
                         try {
-                            val req = service!!.postImage(body, name)
-                            req.enqueue(object : Callback<ArrayList<AudioDataResponse>> {
-                            }
-
-                                    override fun onResponse(call: Call<ArrayList<AudioDataResponse>>, response: Response<ArrayList<AudioDataResponse>>) {
-                                try {
-                                    println("Response : " + response.message())
-                                    val audioStatusList = response.body()
-                                    audioStatusList?.let {
-                                        val status = it[0].status
-                                        val file = it[0].filename
+                            val req: Call<ArrayList<AudioDataResponse>> =
+                                service!!.postImage(body, name)
+                            req.enqueue(object : Callback<ArrayList<AudioDataResponse>?> {
+                                override fun onResponse(
+                                    call: Call<ArrayList<AudioDataResponse>?>,
+                                    response: Response<ArrayList<AudioDataResponse>?>
+                                ) {
+                                    try {
+                                        println("Response :" + response.message())
+                                        AudioStatusList = response.body()
+                                        assert(response.body() != null)
+                                        val status: String = response.body()!![0].getStatus()
+                                        val file: String = response.body()!![0].getFilename()
                                         uploadFirebaseFlag = true
                                         try {
-                                            if (audioStatusList.size > 0) {
-                                                val dbhelper = DBHelper(applicationContext)
-                                                for (data in audioStatusList) {
+                                            if (AudioStatusList!!.size > 0) {
+                                                dbhelper = DBHelper(applicationContext)
+                                                for (data in AudioStatusList) {
                                                     dbhelper.updateSyncStatus(file, status)
                                                 }
                                             }
-
                                         } catch (e: Exception) {
                                             e.printStackTrace()
                                         }
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
                                     }
-                                } catch (e: Exception) {
-                                    e.printStackTrace()
                                 }
-                            }
 
-                                    override fun onFailure(call: Call<ArrayList<AudioDataResponse>>, t: Throwable) {
-                                t.printStackTrace()
-                                println("Error Response : " + t.message)
-                                uploadFirebaseFlag = false
-                            }
-                        })
-                        println("uploadFirebaseFlag : $uploadFirebaseFlag")
+                                override fun onFailure(
+                                    call: Call<ArrayList<AudioDataResponse>?>,
+                                    t: Throwable
+                                ) {
+                                    t.printStackTrace()
+                                    println("Error Response :" + t.message)
+                                    uploadFirebaseFlag = false
+                                }
+                            })
+                            println("uploadFirebaseFlag : $uploadFirebaseFlag")
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
                     }
                 }
-            } catch (fe: FileNotFoundException) {
+            } catch (fe: Exception) {
                 fe.printStackTrace()
             }
         }

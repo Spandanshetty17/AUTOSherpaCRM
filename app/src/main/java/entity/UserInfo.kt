@@ -1,6 +1,6 @@
 package entity
 
-    class UserInfo(
+data class UserInfo(
         var dealerId: String = "",
         var disableUser: String = "",
         var locationStatus: String = "",

@@ -19,7 +19,7 @@ class CallTriggerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_call_trigger)
         val settings=(application as WyzConnectApp).settings
-        val phoneNumber=settings.getUserPhoneNumber()
+        val phoneNumber=settings.userPhoneNumber
         val Intent =intent(Intent.ACTION_CALL)
         intent.flags=Intent.FLAG_ACTIVITY_NEW_TASK
         intent.data=Uri.parse("tel:$phoneNumber")

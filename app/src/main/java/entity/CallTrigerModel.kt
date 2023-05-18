@@ -1,6 +1,6 @@
 package entity
 
-class CallTrigerModel {
+ data class CallTrigerModel {
     var checkForeground:Boolean=false
 
     fun getCheckForeground(): Boolean? {

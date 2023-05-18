@@ -16,7 +16,7 @@ android {
 
         crmcalling{
             minSdkVersion 19
-            applicationId 'com.demo.autosherpa3'
+            applicationId 'com.autosherpas.crmcalling'
             targetSdkVersion 33
             versionCode 1
             versionName '1.0'
@@ -86,7 +86,6 @@ android {
         exclude 'META-INF/maven/commons-io/commons-io/pom.properties'
 
     }
-
 }
 
 

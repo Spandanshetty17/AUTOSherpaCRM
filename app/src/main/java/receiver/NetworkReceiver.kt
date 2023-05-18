@@ -8,9 +8,7 @@ import android.content.Intent
 
 import android.net.ConnectivityManager
 
-import android.net.NetworkInfo
-
-import com.demo.autosherpa3.ActivityPhoneAuth.dialog
+import activity.ActivityPhoneAuth.dialog
 
 class NetworkReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {

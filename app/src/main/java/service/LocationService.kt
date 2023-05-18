@@ -11,7 +11,7 @@ import android.os.IBinder
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.demo.autosherpa3.WyzConnectApp
+import activity.SplashActivity
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationListener
@@ -42,7 +42,7 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks, GoogleAp
 
     override fun onCreate() {
         super.onCreate()
-        settings = applicationContext as WyzConnectApp).settings
+        settings = applicationContext as SplashActivity.companion.Commonsettingsc.settings
         createLocationRequest()
         buildGoogleApiClient()
     }
@@ -119,8 +119,7 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks, GoogleAp
         LocationServices.FusedLocationApi.requestLocationUpdates(
             mGoogleApiClient, mLocationRequest, this)
     }
-    Stopping location updates
-    */
+
     protected fun stopLocationUpdates() {
         Log.d(TAG, "stoppedLocationUpdates()")
         mGoogleApiClient?.let {
@@ -128,8 +127,7 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks, GoogleAp
                 it, this)
         }
     }
-    Creating location request object
-    */
+
     protected fun createLocationRequest() {
         mLocationRequest = LocationRequest()
         mLocationRequest.interval = UPDATE_INTERVAL

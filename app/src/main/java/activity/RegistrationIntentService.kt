@@ -1,12 +1,9 @@
-package com.demo.autosherpa3
+package activity
 
 import android.app.IntentService
 import android.content.Intent
-import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.util.Log
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 
 

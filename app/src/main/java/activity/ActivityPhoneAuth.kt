@@ -1,11 +1,10 @@
-package com.demo.autosherpa3
+package activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.demo.autosherpa3.SplashActivity.MY_PREFS_NAME
-import com.demo.autosherpa3.SplashActivity.updateUrl
+import activity.SplashActivity.MY_PREFS_NAME
+import activity.SplashActivity.updateUrl
 import android.Manifest
-import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
 import android.app.ProgressDialog
@@ -20,7 +19,6 @@ import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
-import android.os.Bundle
 import android.provider.Settings
 import android.telephony.TelephonyManager
 import android.text.Editable
@@ -31,17 +29,14 @@ import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -52,10 +47,9 @@ import com.hbb20.CountryCodePicker
 import java.util.ArrayList
 import java.util.HashMap
 import java.util.Objects
-import java.util.concurrent.TimeUnit
-import activity.CREActivity
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.demo.autosherpa3.R
 import entity.AppLogin
 import entity.UserInfo
 import receiver.NetworkReceiver
@@ -148,7 +142,7 @@ class ActivityPhoneAuth : AppCompatActivity() {
         setContentView(R.layout.activity_phone_auth)
         ButterKnife.bind(this)
         id_login = findViewById(R.id.id_login)
-        settings = CommonSettings.getInstance()
+        settings = CommonSettings.instance
         mNetworkReceiver = NetworkReceiver()
         registerNetworkBroadcastForNougat()
         prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE)
@@ -322,9 +316,9 @@ class ActivityPhoneAuth : AppCompatActivity() {
             if (imeierror.getVisibility() == View.VISIBLE) {
                 String imeiNumber = edt_imei.getText().toString();
                 if (imeiNumber.length() == 0) {
-                    settings.setImeiNumber("0");
+                    settings.imeiNumber = "0";
                 } else {
-                    settings.setImeiNumber(imeiNumber);
+                    settings.imeiNumber = imeiNumber;
                 }
             }
             String number = Objects.requireNonNull(etxtPhone.getText()).toString();
@@ -595,14 +589,14 @@ class ActivityPhoneAuth : AppCompatActivity() {
                     imeiNumber = mngr.deviceId
                     Log.d("imei number: ", imeiNumber)
                     // Toast.makeText(this, imeiNumber, Toast.LENGTH_LONG).show()
-                    settings.setImeiNumber(imeiNumber)
+                    settings.imeiNumber = imeiNumber
                 }
             } else {
                 val mngr = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 imeiNumber = mngr.deviceId
                 Log.d("imei number: ", imeiNumber)
                 // Toast.makeText(this, imeiNumber, Toast.LENGTH_LONG).show()
-                settings.setImeiNumber(imeiNumber)
+                settings.imeiNumber = imeiNumber
             }
         }
 
@@ -630,7 +624,9 @@ class ActivityPhoneAuth : AppCompatActivity() {
             // change color for icon 0
             val yourdrawable: Drawable = menu.getItem(0).icon // change 0 with 1,2 ...
             yourdrawable.mutate()
-            yourdrawable.colorFilter = PorterDuffColorFilter(ContextCompat.getColor(this, R.color.color_background), PorterDuff.Mode.SRC_IN)
+            yourdrawable.colorFilter = PorterDuffColorFilter(ContextCompat.getColor(this,
+                R.color.color_background
+            ), PorterDuff.Mode.SRC_IN)
             return true
         }
 
