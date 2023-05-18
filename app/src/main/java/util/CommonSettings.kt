@@ -10,7 +10,7 @@ import java.io.File
 import java.util.ArrayList
 import java.util.HashMap
 
-object CommonSettings {
+data class CommonSettings {
     var isCheckForeground = false
     private var AudioSource = 0
     private var SYNC_SOURCE: String? = ""
